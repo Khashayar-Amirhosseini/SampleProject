@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.IdentityModel.Tokens;
 using SampleProject.Model.Entity;
+using System.Collections;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
@@ -8,7 +9,7 @@ namespace SampleProject.Infrastructure
 {
     public class JwtManager
     {
-        private const string Secret = "db3OIsj+BXE9NZDy0t8W3TcNekrF+2d/1sFnWG4HnV8TZY30iTOdtVWJG8abWvB1GlOgJuQZdcF2Luqm/hccMw==";
+     /*   private const string Secret = "db3OIsj+BXE9NZDy0t8W3TcNekrF+2d/1sFnWG4HnV8TZY30iTOdtVWJG8abWvB1GlOgJuQZdcF2Luqm/hccMw==";
         
         public static string GenerateToken(Client client,int expireMinutes = 20)
         {
@@ -16,6 +17,7 @@ namespace SampleProject.Infrastructure
             var tokenHandler = new JwtSecurityTokenHandler();
 
             var now = DateTime.UtcNow;
+            
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]
@@ -23,18 +25,24 @@ namespace SampleProject.Infrastructure
                             new Claim("userName", client.Email),
                             new Claim("name", client.Name),
                             new Claim("family", client.Family),
+
                         }),
 
                 Expires = now.AddMinutes(Convert.ToInt32(expireMinutes)),
 
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(symmetricKey), SecurityAlgorithms.HmacSha256Signature)
             };
-
+            if (client.RoleClients != null)
+            {
+                foreach (RoleClient roleClient in client.RoleClients)
+                {
+                    tokenDescriptor.Subject.AddClaim(new Claim(roleClient.Role.Name,"true"));
+                }
+            }
+         
             SecurityToken securityToken = tokenHandler.CreateToken(tokenDescriptor);
             var token = tokenHandler.WriteToken(securityToken);
-            
-
-
+           
             return token;
 
         }
@@ -67,7 +75,7 @@ namespace SampleProject.Infrastructure
             {
                 return null;
             }
-        }
+        }*/
 
     }
 }

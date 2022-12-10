@@ -36,7 +36,6 @@ namespace SampleProject.Controllers
         public async Task<IActionResult> Create(Client client)
         {
             
-        
             client.Email = client.Email.ToLower();
 
             await myContext.Client.AddAsync(client);

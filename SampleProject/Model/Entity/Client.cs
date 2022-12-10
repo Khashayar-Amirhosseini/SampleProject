@@ -10,6 +10,7 @@ namespace SampleProject.Model.Entity
     [Table(name:"CLIENTS")]
     public class Client
     {
+        
         [Key]
         public long Id { get; set; }
         [Required(ErrorMessage ="Name is Required")]
@@ -28,8 +29,8 @@ namespace SampleProject.Model.Entity
         [Column("JOIN_DATE",TypeName ="TIMESTAMP")]
         public DateTime joinDate { get; set; }
         [Column("IS_ACTIVATED",TypeName = "BINARY_DOUBLE")]
-        public bool IsActivated { get; set; } 
-        public List<Role> Roles { get; set; }
+        public bool IsActivated { get; set; }
+        public IList<RoleClient> RoleClients { get; set; }
 
     }
 }
